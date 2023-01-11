@@ -19,7 +19,7 @@ def register(req):
     return render(req, 'users/register.html', {'form': form})
 
 def login(req):
-    return HttpResponse("Login page")
+    return render(req, 'users/login.html')
 
 def home(req):
     return render(req, 'users/home.html')
