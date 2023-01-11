@@ -1,5 +1,10 @@
 {% extends 'users/home.html' %}
 
 {% block content %}
-Hallo {{ name }}, everything works fine.
+    <form method="POST">
+    <table>
+        {{ form.as_table }}
+    </table>
+    <button type="submit">Register</button>
+    </form>
 {% endblock %}
