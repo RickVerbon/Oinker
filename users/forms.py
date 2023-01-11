@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 
 
-class Register(forms.ModelForm):
+class RegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(widget=forms.PasswordInput, label='Confirm password')
 
