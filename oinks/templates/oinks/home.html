@@ -1,5 +1,25 @@
 {% extends 'template.html' %}
 
 {% block content %}
-<h1> Oink oink </h1>
+<form method="post">
+    {% csrf_token %}
+    {{  form.as_p }}
+<button type="submit">Post oink!</button>
+</form>
+
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<hr>
+<div>
+{% for oink in oinks %}
+    <span> {{  oink.id }}: {{  oink.oink_text }} - {{ oink.date_time }}</span> <br>
+{% endfor %}
+</div>
 {% endblock %}
