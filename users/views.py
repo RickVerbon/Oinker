@@ -3,7 +3,8 @@ from django.shortcuts import render
 
 # Create your views here.
 def register(req):
-    return HttpResponse("Register page")
+    name = "Rick"
+    return render(req, 'users/register.html', {'name': name})
 
 def login(req):
     return HttpResponse("Login page")
