@@ -21,5 +21,3 @@ def register(req):
 def login(req):
     return render(req, 'users/login.html')
 
-def home(req):
-    return render(req, 'users/home.html')
