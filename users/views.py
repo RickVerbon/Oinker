@@ -16,8 +16,10 @@ def register(req):
             return redirect('home')
     else:
         form = RegisterForm()
-
     return render(req, 'users/register.html', {'form': form})
 
 def login(req):
     return HttpResponse("Login page")
+
+def home(req):
+    return render(req, 'users/home.html')
