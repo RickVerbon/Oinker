@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from .forms import OinkForm
 from .models import Oink
 from django.contrib import messages
-from datetime import datetime
 
 
 # Create your views here.
@@ -18,7 +17,7 @@ def home(req):
     else:
         form = OinkForm()
         if req.user:
-            oinks = Oink.objects.filter(user=req.user)
+            oinks = Oink.objects.filter(user=req.user.id)
         else:
             return None
     return render(req, 'oinks/home.html', {'form': form, "oinks": oinks})

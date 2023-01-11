@@ -1,11 +1,13 @@
 {% extends 'template.html' %}
-
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    {{  form.as_p }}
-<button type="submit">Post oink!</button>
-</form>
+
+{% if user.is_authenticated %}
+    <form method="post">
+        {% csrf_token %}
+        {{  form.as_p }}
+    <button type="submit">Post oink!</button>
+    </form>
+{% endif %}
 
 
 {% if messages %}
