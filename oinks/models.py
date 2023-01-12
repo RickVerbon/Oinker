@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django import forms
 from datetime import datetime
 
 
@@ -14,11 +15,6 @@ class Oink(models.Model):
         oink = cls(user=user, oink_text=oink_text)
         oink.save()
         return oink
-
-    def delete_oink(cls, id):
-        oink = cls(id=id)
-        oink.delete()
-        return "Deleted oink"
 
     def __str__(self):
         _str = self.user.username + ": " + str(self.id)

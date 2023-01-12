@@ -1,13 +1,26 @@
 {% extends 'template.html' %}
 {% block content %}
 
+
+
 {% if user.is_authenticated %}
-    <form method="post">
-        {% csrf_token %}
-        {{  form.as_p }}
-    <button type="submit">Post oink!</button>
-    </form>
+    <div class="container">
+     <div class="row marketing">
+        <div class="col-lg-6">
+            <div class="form-group" style="">
+                <form method="post" action="{% url 'create-oink' %}">
+                    {% csrf_token %}
+                    {{  form.as_p }}
+                    <button type="submit" class="btn btn-primary" style="background-color: rgb(247, 151, 207);">Oink!</button>
+                </form>
+            </div>
+        </div>
+     </div>
+    </div><br>
+
 {% endif %}
+
+
 
 
 {% if messages %}
@@ -19,9 +32,22 @@
 {% endif %}
 
 <hr>
-<div>
 {% for oink in oinks %}
-    <span> {{  oink.id }}: {{  oink.oink_text }} - {{ oink.date_time }}</span> <br>
+<div class="container">
+     <div class="row marketing">
+        <div class="col-lg-6">
+                <div class="card" style="">
+                    <div class="card-body">
+                        <h4 class="card-title">@{{  oink.user }}</h4>
+                        <p class="card-text">{{ oink.oink_text }}</p>
+                        <hr style="">
+                        <p class="card-date" style="line-height: 16px; text-align: right;"><a href="{%  url 'delete-oink' oink.pk %}">delete</a>  - {{ oink.date_time }}</p>
+                    </div>
+                </div>
+        </div>
+      </div>
+</div><br> <!-- /container -->
+
 {% endfor %}
-</div>
+</div
 {% endblock %}
