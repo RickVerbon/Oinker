@@ -30,8 +30,7 @@ def create_oink(req):
     return redirect('home')
 
 def delete_oink(req, pk):
-    oink = Oink.objects.get(id=pk)
-    oink.delete()
+    Oink.delete_oink(pk)
     return redirect('home')
 
 
