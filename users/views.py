@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from profiles.models import UserProfile
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login
@@ -15,6 +16,7 @@ def register(req):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password')
             user = User.objects.create_user(username=username, password=raw_password)
+            UserProfile.objects.create(user=user)
             if user is not None:
                 login(req, user)
             return redirect("home")

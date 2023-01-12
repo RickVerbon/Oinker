@@ -12,5 +12,4 @@ from .forms import ProfileForm
 
 def user_profile(req):
     form = ProfileForm(instance=req.user)
-
     return render(req, "profiles/profiles.html", {'form': form})
