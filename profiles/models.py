@@ -12,6 +12,5 @@ class UserProfile(models.Model):
     description = models.TextField(blank=True)
     following = models.ManyToManyField("self", blank=True)
 
-
     def __str__(self):
         return self.user.username
