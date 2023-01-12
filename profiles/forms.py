@@ -1,10 +1,10 @@
 from django import forms
-from django.contrib.auth.models import User
+from profiles.models import UserProfile
 
 
 class ProfileForm(forms.ModelForm):
     email = forms.EmailField()
 
     class Meta:
-        model = User
-        fields = ('first_name', 'last_name', 'email')
+        model = UserProfile
+        fields = ('first_name', 'last_name', 'email', 'description',)
