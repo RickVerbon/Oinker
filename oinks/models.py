@@ -21,7 +21,6 @@ class Oink(models.Model):
         oink = cls.objects.get(id=pk)
         oink.delete()
 
-
     def __str__(self):
         _str = self.user.username + ": " + str(self.id)
         return _str
