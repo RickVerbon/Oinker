@@ -10,5 +10,8 @@ class OinkForm(forms.ModelForm):
         widgets = {
             'oink_text': forms.TextInput(attrs={
         'class': 'form-control'
-        })
+        })}
+
+        labels = {
+        'oink_text': 'Whats on your mind?'
         }

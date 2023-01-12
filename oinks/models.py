@@ -19,9 +19,12 @@ class Oink(models.Model):
         return oink
 
     @classmethod
-    def delete_oink(cls, pk):
+    def delete_oink(cls, pk, user):
         oink = cls.objects.get(id=pk)
-        oink.delete()
+        if oink.user == user:
+            oink.delete()
+        else:
+            return None
 
     @classmethod
     def get_user_oinks(cls, user):
@@ -30,9 +33,13 @@ class Oink(models.Model):
 
     @classmethod
     def get_following_oinks(cls, user):
-        NotImplemented()
+        user_profile = UserProfile.objects.get(user=user)
+        #About ".values_list('user', flat=True" it uses the values_list() method to retrieve the user field from the UserProfile queryset, and passing flat=True will return a simple list of User objects, instead of a list of tuples.
+        following_users = user_profile.following.all().values_list('user', flat=True)
 
-
+        #next, it's filtering all Oink objects for all the users in the following_users list.
+        oinks = cls.objects.filter(user__in=following_users)
+        return oinks
 
     def __str__(self):
         _str = self.user.username + ": " + str(self.id)

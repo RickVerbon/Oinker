@@ -9,8 +9,8 @@ def home(req):
     form = OinkForm()
     if req.user:
         #.order_by('-id') draait de order om.
-        oinks = Oink.get_user_oinks(user=req.user).order_by('-id')
-
+        #oinks = Oink.get_user_oinks(user=req.user).order_by('-id')
+        oinks = Oink.get_following_oinks(user=req.user).order_by('-id')
     else:
         return None
     return render(req, 'oinks/home.html', {'form': form, "oinks": oinks})
@@ -31,7 +31,7 @@ def create_oink(req):
     return redirect('home')
 
 def delete_oink(req, pk):
-    Oink.delete_oink(pk)
+    Oink.delete_oink(pk, req.user)
     return redirect('home')
 
 

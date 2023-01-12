@@ -41,7 +41,7 @@
                         <h4 class="card-title">@{{  oink.user }}</h4>
                         <p class="card-text">{{ oink.oink_text }}</p>
                         <hr style="">
-                        <p class="card-date" style="line-height: 16px; text-align: right;"><a href="{%  url 'delete-oink' oink.pk %}">delete</a>  - {{ oink.date_time }}</p>
+                        <p class="card-date" style="line-height: 16px; text-align: right;">{% if oink.user == req.user %}<a href="{%  url 'delete-oink' oink.pk %}">delete</a>  - {% endif %} {{ oink.date_time }}</p>
                     </div>
                 </div>
         </div>
