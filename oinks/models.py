@@ -3,6 +3,8 @@ from django.db import models
 from django import forms
 from datetime import datetime
 
+from profiles.models import UserProfile
+
 
 # Create your models here.
 class Oink(models.Model):
@@ -20,6 +22,17 @@ class Oink(models.Model):
     def delete_oink(cls, pk):
         oink = cls.objects.get(id=pk)
         oink.delete()
+
+    @classmethod
+    def get_user_oinks(cls, user):
+        oinks = cls.objects.filter(user=user.id)
+        return oinks
+
+    @classmethod
+    def get_following_oinks(cls, user):
+        NotImplemented()
+
+
 
     def __str__(self):
         _str = self.user.username + ": " + str(self.id)

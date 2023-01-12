@@ -10,7 +10,7 @@ class UserProfile(models.Model):
     last_name = models.CharField(max_length=30, blank=True)
     email = models.EmailField(blank=True)
     description = models.TextField(blank=True)
-    followers = models.ManyToManyField("self", blank=True)
+    following = models.ManyToManyField("self", blank=True)
 
 
     def __str__(self):
