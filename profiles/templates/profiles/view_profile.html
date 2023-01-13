@@ -4,7 +4,13 @@
 
 <div class="container">
 	<div class="header clearfix">
-        <h3 class="text-muted" style="margin-left: 20px">{{ profile.user}},              Oinker since {{ profile.created.day }}-{{ profile.created.month }}-{{ profile.created.year }} </h3>
+        <h3 class="text-muted" style="margin-left: 20px">{{ profile.user}},              Oinker since {{ profile.created.day }}-{{ profile.created.month }}-{{ profile.created.year }}  -
+        {% if profile not in logged_in_profile.following.all %}
+                <a href="{% url 'follow-profile' profile.user.username %}">Follow</a>
+            {% else %}
+                <a href="{% url 'unfollow-profile' profile.user.username %}">Unfollow</a>
+        {% endif %}
+        </h3>
         <small class="text-muted" style="margin-left: 20px">Recent Oinks</small>
     </div>
 {% if num_oinks == 0 %}
@@ -100,7 +106,7 @@
 	</div>
 	<div class="header clearfix">
         {% if profile.user == user %}
-        <h5 class="text-muted" style="margin-left: 20px"> <a href="{% url "edit-profile" %}">Edit profile</a> </h5>
+            <h5 class="text-muted" style="margin-left: 20px"> <a href="{% url "edit-profile" %}">Edit profile</a> </h5>
         {% endif %}
     </div>
 </div> <!-- /container -->
