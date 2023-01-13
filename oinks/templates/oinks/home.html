@@ -32,25 +32,28 @@
 {% endif %}
 
 <hr>
+
+
 {% if user.is_authenticated %}
-    {% for oink in oinks %}
-    <div class="container">
-         <div class="row marketing">
-            <div class="col-lg-6">
-                    <div class="card" style="">
-                        <div class="card-body">
-                            <h4 class="card-title">@<a href="{% url "view-profile" oink.user.username %}"> {{  oink.user }}</a></h4>
-                            <p class="card-text">{{ oink.oink_text }}</p>
-                            <hr style="">
-                            <p class="card-text">
-                                <small class="text-muted" style="">{% if oink.user == req.user %}<a href="{%  url 'delete-oink' oink.pk %}">delete</a>  - {% endif %} {{ oink.date_time|date:'F d, Y H:i' }}</small>
-                            </p>
-                        </div>
-                    </div>
+{% for oink in oinks %}
+<div class="container">
+   <div class="row marketing">
+      <div class="col-lg-6">
+         <div class="card" style="">
+            <div class="card-body">
+               <h4 class="card-title">@<a href="{% url "view-profile" oink.user.username %}"> {{  oink.user }}</a></h4>
+               <p class="card-text">{{ oink.oink_text }}</p>
+               <hr style="">
+               <p class="card-text">
+                  <small class="text-muted" style="">{% if oink.user == user %}<a href="{%  url 'delete-oink' oink.pk %}">delete</a>  - {% endif %} {{ oink.date_time|date:'F d, Y H:i' }}</small>
+               </p>
             </div>
-          </div>
-    </div><br> <!-- /container -->
-    {% endfor %}
+         </div>
+      </div>
+   </div>
+</div>
+<br> <!-- /container -->
+{% endfor %}
 {% endif %}
 
 </div

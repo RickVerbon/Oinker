@@ -10,11 +10,12 @@ from .models import UserProfile
 
 def edit_profile(req):
     form = ProfileForm(instance=req.user)
-    return render(req, "profiles/edit_profile", {'form': form})
+    return render(req, "profiles/edit_profile.html", {'form': form})
 
 
 def view_profile(req, username):
     user = User.objects.get(username=username)
     user_profile = UserProfile.objects.get(user=user)
-    oinks = Oink.get_user_oinks(user)
-    return render(req, "profiles/view_profile.html", {"profile": user_profile, "oinks": oinks})
+    oinks = Oink.get_last_oinks(user=user, amount=4)
+    num_oinks = len(oinks)
+    return render(req, "profiles/view_profile.html", {"profile": user_profile, "oinks": oinks, "num_oinks": num_oinks, "user": req.user})

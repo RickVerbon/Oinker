@@ -11,6 +11,7 @@ class UserProfile(models.Model):
     email = models.EmailField(blank=True)
     description = models.TextField(blank=True)
     following = models.ManyToManyField("self", blank=True)
+    created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.user.username

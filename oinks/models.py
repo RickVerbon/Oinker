@@ -41,6 +41,11 @@ class Oink(models.Model):
         oinks = cls.objects.filter(user__in=following_users)
         return oinks
 
+    @classmethod
+    def get_last_oinks(cls, user, amount):
+        oinks = Oink.get_user_oinks(user=user).order_by('-id')[:amount]
+        return oinks
+
     def __str__(self):
         _str = self.user.username + ": " + str(self.id)
         return _str

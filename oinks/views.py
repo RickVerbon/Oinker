@@ -13,7 +13,7 @@ def home(req):
         #oinks = Oink.get_user_oinks(user=req.user).order_by('-id')
         oinks = Oink.get_following_oinks(user=req.user).order_by('-id')
 
-    return render(req, 'oinks/home.html', {'form': form, "oinks": oinks})
+    return render(req, 'oinks/home.html', {'form': form, "oinks": oinks, "user": req.user})
 
 
 def create_oink(req):
