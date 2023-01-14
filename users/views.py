@@ -4,7 +4,8 @@ from profiles.models import UserProfile
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, SearchForm
+
 
 # Create your views here.
 
@@ -46,3 +47,11 @@ def login_user(req):
 def logout_user(req):
     logout(req)
     return redirect('home')
+
+def search_user(req):
+    if req.method == "POST":
+        form = SearchForm(req.POST)
+        if form.is_valid():
+            search = form.cleaned_data.get('search')
+            users = User.objects.filter(username__icontains=search)
+    return render(req, 'users/search_results.html', {'form': form})

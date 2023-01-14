@@ -26,7 +26,7 @@ def create_oink(req):
             messages.success(req, f"Oink created successfully")
             return redirect("home")
         else:
-            messages.error(req, f"Somehting went wrong")
+            messages.error(req, f"Something went wrong")
 
     return redirect('home')
 

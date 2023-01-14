@@ -23,3 +23,11 @@ class LoginForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username',)
+
+
+class SearchForm(forms.ModelForm):
+    search = forms.CharField(label='Search', max_length=30)
+
+    class Meta:
+        model = User
+        fields = ('username',)

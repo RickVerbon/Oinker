@@ -5,6 +5,7 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
+
       {% if user.is_authenticated %}
         <li class="nav-item">
             <a class="nav-link" href="{% url "view-profile" user.username %}">Welcome, {{ user.username }} </a>
@@ -19,8 +20,10 @@
         <li class="nav-item">
             <a class="nav-link" href="{%  url 'user-register' %}">Register</a>
         </li>
-           {% endif %}
-      </li>
+      {% endif %}
+        <li class="nav-item">
+        {% include "Search.html" %}
+        </li>
     </ul>
   </div>
 </nav>
