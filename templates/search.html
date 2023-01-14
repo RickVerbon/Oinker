@@ -1,6 +1,5 @@
-<form method="post" action="{% url 'search' %}">
+<form class="d-flex" role="search"method="post" action="{% url 'search' %}">
   {% csrf_token %}
-  <label for="search">Search:</label>
-  <input type="text" name="search" id="search">
-  <input type="submit" value="Search">
+  <input class="form-control me-2" name="search" id="search" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success" type="submit">Search</button>
 </form>
