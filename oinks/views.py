@@ -1,7 +1,9 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from .forms import OinkForm
 from .models import Oink
 from django.contrib import messages
+from profiles.models import UserProfile
 
 
 # Create your views here.
@@ -30,8 +32,18 @@ def create_oink(req):
 
     return redirect('home')
 
+
 def delete_oink(req, pk):
     Oink.delete_oink(pk, req.user)
     return redirect('home')
 
+
+def search_all(req):
+    users = None
+    if req.method == "POST":
+        logged_in_profile = UserProfile.objects.get(user=req.user)
+        search = req.POST.get('search')
+        profiles = UserProfile.objects.filter(user__username__icontains=search)
+        oinks = Oink.objects.filter(oink_text__icontains=search)
+    return render(req, 'oinks/search_results.html', {'profiles': profiles, 'oinks': oinks, 'logged_in_profile': logged_in_profile})
 

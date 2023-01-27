@@ -47,10 +47,3 @@ def login_user(req):
 def logout_user(req):
     logout(req)
     return redirect('home')
-
-def search_user(req):
-    users = None
-    if req.method == "POST":
-        search = req.POST.get('search')
-        users = User.objects.filter(username__icontains=search)
-    return render(req, 'users/search_results.html', {'users': users})
