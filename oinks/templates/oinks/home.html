@@ -10,7 +10,7 @@
             <div class="form-group" style="">
                 <form method="post" action="{% url 'create-oink' %}">
                     {% csrf_token %}
-                    {{  form.as_p }}
+                    {{  oink_form.as_p }}
                     <button type="submit" class="btn btn-primary" id="oink-button" style="color: black; background-color: hotpink; border-color: hotpink;">Oink!</button>
                 </form>
             </div>
@@ -45,8 +45,20 @@
                <p class="card-text">{{ oink.oink_text }}</p>
                <hr style="">
                <p class="card-text">
-                  <small class="text-muted" style="">{% if oink.user == user %}<a href="{%  url 'delete-oink' oink.pk %}">delete</a>  - {% endif %} {{ oink.date_time|date:'F d, Y H:i' }}</small>
+                  <small class="text-muted" style="">{% if oink.user == user %}<a href="{%  url 'delete-oink' oink.pk %}">delete</a>  - {% endif %} {{ oink.date_time|date:'F d, Y H:i' }} &nbsp&nbsp&nbsp&nbsp Comments: {{ oink.comment_set.count }}</small>
+                <form method="post" action="{% url "create-comment" oink.pk %} ">
+                    {% csrf_token %}
+                    {{  comment_form.as_p }}
+                    <button type="submit" class="btn btn-primary" id="oink-button" style="color: black; background-color: hotpink; border-color: hotpink;">Oink!</button>
+                </form>
                </p>
+                {% if oink.comment_set.count != 0 %}
+                    {% for comment in oink.comment_set.all %}
+                        <p class="card-text" >
+                          <small class="text-muted" style="">@<a href="{%  url 'view-profile' comment.user %}">{{ comment.user}}</a>: {{ comment.comment_text }}</small>
+                        </p>
+                    {%  endfor %}
+                {%  endif  %}
             </div>
          </div>
       </div>

@@ -1,21 +1,22 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from .forms import OinkForm
-from .models import Oink
+from .forms import OinkForm, CommentForm
+from .models import Oink, Comment
 from django.contrib import messages
 from profiles.models import UserProfile
 
 
 # Create your views here.
 def home(req):
-    form = OinkForm()
-    oinks=[]
+    oink_form = OinkForm()
+    comment_form = CommentForm()
+    oinks = []
     if req.user.is_authenticated:
         #.order_by('-id') draait de order om.
         #oinks = Oink.get_user_oinks(user=req.user).order_by('-id')
-        oinks = Oink.get_following_oinks(user=req.user).order_by('-id')
+        oinks = Oink.get_following_oinks(user=req.user).order_by('-id').prefetch_related('comment_set')
 
-    return render(req, 'oinks/home.html', {'form': form, "oinks": oinks, "user": req.user})
+    return render(req, 'oinks/home.html', {'oink_form': oink_form, "comment_form": comment_form, "oinks": oinks, "user": req.user})
 
 
 def create_oink(req):
@@ -35,6 +36,18 @@ def create_oink(req):
 
 def delete_oink(req, pk):
     Oink.delete_oink(pk, req.user)
+    return redirect('home')
+
+
+def create_comment(req, oink_pk):
+    if req.method == "POST":
+        form = CommentForm(req.POST)
+        if form.is_valid():
+
+            profile = UserProfile.objects.get(user=req.user)
+            comment_text = form.cleaned_data.get("comment_text")
+            oink = Oink.objects.get(pk=oink_pk)
+            Comment.create_comment(profile, oink, comment_text)
     return redirect('home')
 
 

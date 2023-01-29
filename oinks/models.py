@@ -49,3 +49,19 @@ class Oink(models.Model):
     def __str__(self):
         _str = self.user.username + ": " + str(self.id)
         return _str
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    oink = models.ForeignKey(Oink, on_delete=models.CASCADE)
+    comment_text = models.CharField(max_length=200)
+    date_time = models.DateTimeField(auto_now=True)
+
+    @classmethod
+    def create_comment(cls, user, oink, comment_text):
+        comment = cls(user=user, oink=oink, comment_text=comment_text)
+        comment.save()
+        return comment
+
+    def __str__(self):
+        return f"{self.user}, {str(self.oink)}"
