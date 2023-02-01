@@ -14,8 +14,9 @@ def home(req):
     if req.user.is_authenticated:
         #.order_by('-id') draait de order om.
         #oinks = Oink.get_user_oinks(user=req.user).order_by('-id')
-        oinks = Oink.get_following_oinks(user=req.user).order_by('-id').prefetch_related('comment_set')
-
+        oinks = Oink.get_following_oinks(user=req.user)\
+            .order_by('-id')\
+            .prefetch_related('comment_set')
     return render(req, 'oinks/home.html', {'oink_form': oink_form, "comment_form": comment_form, "oinks": oinks, "user": req.user})
 
 
@@ -52,7 +53,6 @@ def create_comment(req, oink_pk):
 
 
 def search_all(req):
-    users = None
     if req.method == "POST":
         logged_in_profile = UserProfile.objects.get(user=req.user)
         search = req.POST.get('search')

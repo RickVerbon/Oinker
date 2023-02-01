@@ -28,5 +28,5 @@ class CommentForm(forms.ModelForm):
         })}
 
         labels = {
-        'comment_text': None
+        'comment_text': "Comment:"
         }
